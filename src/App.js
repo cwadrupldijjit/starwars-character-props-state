@@ -6,9 +6,10 @@ import './App.css';
 
 class App extends Component {
   render() {
-    return (
+    return ( 
       <div className="App">
-        <Header text="Star Wars Characters!" />
+        <Header text="Star Wars Characters" />
+        {/* <Parent name="Luke" /> */}
         <Parent name="Anakin" />
       </div>
     );

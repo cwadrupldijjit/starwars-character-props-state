@@ -17,7 +17,7 @@ class Parent extends Component {
   
   componentWillMount() {
       axios
-        .get('//localhost:8000/children')
+        .get('/children')
         .then(response => {
             this.setState({
                 children: response.data,
@@ -27,10 +27,10 @@ class Parent extends Component {
   
   render() {
     const children = this.state.children
-        .map((child, i) => (
-            <li key={`children-${this.props.name}-${i}`}>
+        .map(child => (
+            <li key={`children-${this.props.name}-${child.id}`}>
                 <Child name={child.name} title={child.title} />
-                <button onClick={() => this.removeChild(i)}>X</button>
+                <button onClick={() => this.removeChild(child.id)}>X</button>
             </li>
         ));
     
@@ -71,7 +71,7 @@ class Parent extends Component {
   
   addChild() {
       axios
-        .post('//localhost:8000/child', {
+        .post('/child', {
             name: this.state.newChildName,
             title: this.state.newChildTitle,
         })
@@ -87,12 +87,12 @@ class Parent extends Component {
         })
   }
   
-  removeChild(index) {
+  removeChild(id) {
       axios
-        .delete('//localhost:8000/child/' + index)
+        .delete('/child/' + id)
         .then(response => {
             this.setState({
-                children: this.state.children.filter((child, i) => index != i),
+                children: this.state.children.filter(child => id != child.id),
             });
         });
   }
